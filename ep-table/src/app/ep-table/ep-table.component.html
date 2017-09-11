@@ -1,0 +1,27 @@
+<kendo-grid #grid [height]="400"
+[style.width.px]="minWidthTableContainer"
+   [data]="gridView"
+   [sortable]="true"
+   [filterable]="true"
+   [pageable]="true"
+   [sort]="kendoGridState.sort"
+   [pageSize]="kendoGridState.take"
+   [skip]="kendoGridState.skip"
+   [filter]="kendoGridState.filter"
+   (pageChange)="setKendoGridState($event)">
+
+
+<kendo-grid-column *ngFor="let column of data.fields; let i = index"
+        [field]="column"
+        [title]="column"
+        [locked]="isLockedColumn(i)"
+        [width]="100">
+
+ <ng-template kendoGridCellTemplate
+      let-dataItem>
+  {{dataItem[column]}}
+</ng-template>
+
+</kendo-grid-column>
+
+</kendo-grid>
