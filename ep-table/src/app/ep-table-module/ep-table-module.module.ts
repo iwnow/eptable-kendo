@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { EpTableComponent } from '../ep-table/ep-table.component';
 
 import { GridModule } from '@progress/kendo-angular-grid';
+import { OutsideEventsDirective } from '../directives';
 
 @NgModule({
   imports: [
@@ -10,7 +11,8 @@ import { GridModule } from '@progress/kendo-angular-grid';
     GridModule
   ],
   declarations: [
-    EpTableComponent
+    EpTableComponent,
+    OutsideEventsDirective
   ],
   exports: [
     EpTableComponent

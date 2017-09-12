@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "dev": "ng s --proxy-config .user-settings/proxy.conf.json -w",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",

@@ -1,5 +1,5 @@
-import { Component, OnInit, ChangeDetectorRef, ViewChild, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
-import { GridDataResult } from '@progress/kendo-angular-grid';
+import { Component, OnInit, ChangeDetectorRef, ViewChild, AfterViewInit, ChangeDetectionStrategy, NgZone } from '@angular/core';
+import { GridDataResult, GridComponent } from '@progress/kendo-angular-grid';
 import { State, process } from '@progress/kendo-data-query';
 import { createData } from './helpers';
 
@@ -11,7 +11,7 @@ import { createData } from './helpers';
 })
 export class EpTableComponent implements OnInit, AfterViewInit {
 
-	@ViewChild('grid') grid;
+	@ViewChild('grid') grid: GridComponent;
 
 		gridView: GridDataResult = {
 			data: [],
@@ -32,7 +32,8 @@ export class EpTableComponent implements OnInit, AfterViewInit {
 		}
 
 		constructor(
-			private detector: ChangeDetectorRef
+      private detector: ChangeDetectorRef,
+      private zones: NgZone
 		) {}
 
 		ngOnInit() {
@@ -41,12 +42,17 @@ export class EpTableComponent implements OnInit, AfterViewInit {
 		}
 
 		ngAfterViewInit() {
-			this.grid
-				.dataStateChange
-				.asObservable()
-				.subscribe(state => {
-					//this.setKendoGridState(state);
-				});
+      // this.zones.runOutsideAngular(() => {
+      //   this.grid
+      //     .pageChange
+      //     //.asObservable()
+      //     .subscribe(state => {
+      //       this.kendoGridState = state;
+      //       // this.zones.run(() => {
+      //       //   this.kendoGridState = state;
+      //       // });
+      //     })
+      // });
 		}
 
 		isLockedColumn(index: number) {
@@ -57,8 +63,11 @@ export class EpTableComponent implements OnInit, AfterViewInit {
 		}
 
 		setKendoGridState(state) {
-      this.kendoGridState = state;
-      this.renderData();
+      this.zones.runOutsideAngular(() => {
+        this.kendoGridState = state;
+      });
+
+      // this.renderData();
 		}
 
 		renderData(detect = true) {
@@ -74,6 +83,18 @@ export class EpTableComponent implements OnInit, AfterViewInit {
 
 			return sumColumnsWidth > fullWidth ? fullWidth : sumColumnsWidth;
 
-		}
+    }
+
+    testClick(e) {
+      this.log('in zone');
+    }
+
+    outClick(e) {
+      this.log('outside');
+    }
+
+    log(o) {
+      console && console.log(o);
+    }
 
 }

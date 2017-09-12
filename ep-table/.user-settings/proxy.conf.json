@@ -1,0 +1,23 @@
+{
+	"/app": {
+		"target": "http://1forma-034.1forma.net:8080/",
+		"secure": false
+	},
+	"/tc": {
+		"target": "http://1forma-034.1forma.net:8080/",
+		"secure": false,
+		"pathRewrite": { "^/tc" : "" }
+	},
+	"/TCWeb.asmx": {
+		"target": "http://1forma-034.1forma.net:8080/",
+		"secure": false
+	},
+	"/GetAttachment.ashx": {
+		"target": "http://1forma-034.1forma.net:8080/",
+		"secure": false
+	},
+	"/MainTaskForm.aspx": {
+		"target": "http://1forma-034.1forma.net:8080/",
+		"secure": false
+	}
+}

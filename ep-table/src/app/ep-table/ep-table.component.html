@@ -1,15 +1,22 @@
-<kendo-grid #grid [height]="400"
-[style.width.px]="minWidthTableContainer"
-   [data]="gridView"
-   [sortable]="true"
-   [filterable]="true"
-   [pageable]="true"
-   [sort]="kendoGridState.sort"
-   [pageSize]="kendoGridState.take"
-   [skip]="kendoGridState.skip"
-   [filter]="kendoGridState.filter"
-   (pageChange)="setKendoGridState($event)">
+<kendo-grid #grid
+  [height]="300"
+  [style.width.px]="minWidthTableContainer"
+  [data]="gridView"
+  [sortable]="true"
+  [filterable]="true"
+  [pageable]="true"
+  [sort]="kendoGridState.sort"
+  [pageSize]="kendoGridState.take"
+  [skip]="kendoGridState.skip"
+  [filter]="kendoGridState.filter">
 
+  <ng-template
+    kendoGridToolbarTemplate
+    [position]="'top'">
+    <button (click)="testClick($event)">auto detect changes</button>
+    <button (appOutsideEvents)="outClick($event)">outside</button>
+
+  </ng-template>
 
 <kendo-grid-column *ngFor="let column of data.fields; let i = index"
         [field]="column"
